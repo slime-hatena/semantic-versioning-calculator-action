@@ -15,14 +15,14 @@ async function run(): Promise<void> {
 
         const semanticVersion = new SemanticVersion().parse(VERSION);
         if (INCREMENT_MAJOR) {
-            semanticVersion.major++;
+            semanticVersion.major = semanticVersion.major + 1;
             semanticVersion.minor = 0;
             semanticVersion.patch = 0;
         } else if (INCREMENT_MINOR) {
-            semanticVersion.minor++;
+            semanticVersion.minor = semanticVersion.minor + 1;
             semanticVersion.patch = 0;
         } else if (INCREMENT_PATCH) {
-            semanticVersion.patch++;
+            semanticVersion.patch = semanticVersion.patch + 1;
         }
         semanticVersion.prerelease = PRERELEASE;
         semanticVersion.meta = META;
