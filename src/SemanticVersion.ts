@@ -5,12 +5,24 @@ export class SemanticVersion {
     private _prerelease = '';
     private _meta = '';
 
+    get major(): number {
+        return this._major;
+    }
+
     set major(value: number) {
         this._major = value;
     }
 
+    get minor(): number {
+        return this._minor;
+    }
+
     set minor(value: number) {
         this._minor = value;
+    }
+
+    get patch(): number {
+        return this._patch;
     }
 
     set patch(value: number) {
