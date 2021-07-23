@@ -1,19 +1,39 @@
 export class SemanticVersion {
-    private major = 0;
-    private minor = 0;
-    private patch = 0;
-    private prerelease = '';
-    private meta = '';
+    private _major = 0;
+    private _minor = 0;
+    private _patch = 0;
+    private _prerelease = '';
+    private _meta = '';
+
+    set major(value: number) {
+        this._major = value;
+    }
+
+    set minor(value: number) {
+        this._minor = value;
+    }
+
+    set patch(value: number) {
+        this._patch = value;
+    }
+
+    set prerelease(value: string) {
+        this._prerelease = value;
+    }
+
+    set meta(value: string) {
+        this._meta = value;
+    }
 
     get tag(): string {
-        if (this.prerelease !== '' && this.meta !== '') {
-            return `${this.major}.${this.minor}.${this.patch}-${this.prerelease}+${this.meta}`;
-        } else if (this.prerelease !== '' && this.meta === '') {
-            return `${this.major}.${this.minor}.${this.patch}-${this.prerelease}`;
-        } else if (this.prerelease === '' && this.meta !== '') {
-            return `${this.major}.${this.minor}.${this.patch}+${this.meta}`;
+        if (this._prerelease !== '' && this._meta !== '') {
+            return `${this._major}.${this._minor}.${this._patch}-${this._prerelease}+${this._meta}`;
+        } else if (this._prerelease !== '' && this._meta === '') {
+            return `${this._major}.${this._minor}.${this._patch}-${this._prerelease}`;
+        } else if (this._prerelease === '' && this._meta !== '') {
+            return `${this._major}.${this._minor}.${this._patch}+${this._meta}`;
         } else {
-            return `${this.major}.${this.minor}.${this.patch}`;
+            return `${this._major}.${this._minor}.${this._patch}`;
         }
     }
 
@@ -47,19 +67,19 @@ export class SemanticVersion {
                 if (hasPrerelease && hasMeta) {
                     const m = element.split('+');
                     element = m[0];
-                    this.meta = m[1];
+                    this._meta = m[1];
 
                     const p = element.split('-');
                     element = p[0];
-                    this.prerelease = p[1];
+                    this._prerelease = p[1];
                 } else if (hasMeta) {
                     const m = element.split('+');
                     element = m[0];
-                    this.meta = m[1];
+                    this._meta = m[1];
                 } else if (hasPrerelease) {
                     const p = element.split('-');
                     element = p[0];
-                    this.prerelease = p[1];
+                    this._prerelease = p[1];
                 }
             }
 
@@ -71,11 +91,11 @@ export class SemanticVersion {
             }
 
             if (i === 0) {
-                this.major = n;
+                this._major = n;
             } else if (i === 1) {
-                this.minor = n;
+                this._minor = n;
             } else if (i === 2) {
-                this.patch = n;
+                this._patch = n;
             }
         }
 

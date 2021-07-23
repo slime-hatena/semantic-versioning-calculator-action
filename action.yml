@@ -2,10 +2,32 @@ name: 'Your name here'
 description: 'Provide a description here'
 author: 'Your name or organization here'
 inputs:
-  milliseconds: # change this
-    required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    VERSION:
+        required: true
+        description: 'Specifies the base version of the calculation as a string. The format must be in accordance with the semantic version. This entry must be specified.'
+    INCREMENT_MAJOR:
+        required: false
+        description: 'Increment major. The default value is "false".'
+        default: 'false'
+    INCREMENT_MINOR:
+        required: false
+        description: 'Increment minor. If there is a change in the upper level, it will be ignored. The default value is "false".'
+        default: 'false'
+    INCREMENT_PATCH:
+        required: false
+        description: 'Increment patch. If there is a change in the upper level, it will be ignored. The default value is "false".'
+        default: 'false'
+    PRERELEASE:
+        required: false
+        description: 'Assign the specified text as a prerelease.'
+        default: 'false'
+    META:
+        required: false
+        description: 'Assign the specified text as a meta.'
+        default: 'false'
+outputs:
+    version:
+        description: 'The message to output'
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+    using: 'node12'
+    main: 'dist/index.js'
