@@ -1,13 +1,14 @@
 name: 'build-test'
-on: # rebuild any PRs and main branch changes
+on:
   pull_request:
   push:
     branches:
       - main
+      - develop
       - 'releases/*'
 
 jobs:
-  build: # make sure build/ci work properly
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,10 +16,61 @@ jobs:
           npm install
       - run: |
           npm run all
-  test: # make sure the action works on a clean machine without building
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        name: 'increment major'
         with:
-          milliseconds: 1000
+          VERSION: '1.2.3+develop'
+          INCREMENT_MAJOR: 'true'
+          INCREMENT_MINOR: 'false'
+          INCREMENT_PATCH: 'false'
+          PRERELEASE: ''
+          META: ''
+      - uses: ./
+        name: 'increment minor'
+        with:
+          VERSION: '1.2.3+develop'
+          INCREMENT_MAJOR: 'false'
+          INCREMENT_MINOR: 'true'
+          INCREMENT_PATCH: 'false'
+          PRERELEASE: ''
+          META: ''
+      - uses: ./
+        name: 'increment patch'
+        with:
+          VERSION: '1.2.3+develop'
+          INCREMENT_MAJOR: 'false'
+          INCREMENT_MINOR: 'false'
+          INCREMENT_PATCH: 'true'
+          PRERELEASE: ''
+          META: ''
+      - uses: ./
+        name: 'add prelease'
+        with:
+          VERSION: '1.2.3+develop'
+          INCREMENT_MAJOR: 'false'
+          INCREMENT_MINOR: 'false'
+          INCREMENT_PATCH: 'false'
+          PRERELEASE: 'main'
+          META: ''
+      - uses: ./
+        name: 'add meta'
+        with:
+          VERSION: '1.2.3+develop'
+          INCREMENT_MAJOR: 'false'
+          INCREMENT_MINOR: 'false'
+          INCREMENT_PATCH: 'false'
+          PRERELEASE: ''
+          META: 'release'
+      - uses: ./
+        name: 'add both'
+        with:
+          VERSION: '1.2.3+develop'
+          INCREMENT_MAJOR: 'false'
+          INCREMENT_MINOR: 'false'
+          INCREMENT_PATCH: 'false'
+          PRERELEASE: 'main'
+          META: 'release'
