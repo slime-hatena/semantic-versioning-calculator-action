@@ -48,16 +48,16 @@ function run() {
             const META = core.getInput('META');
             const semanticVersion = new SemanticVersion_1.SemanticVersion().parse(VERSION);
             if (INCREMENT_MAJOR) {
-                semanticVersion.major++;
+                semanticVersion.major = semanticVersion.major + 1;
                 semanticVersion.minor = 0;
                 semanticVersion.patch = 0;
             }
             else if (INCREMENT_MINOR) {
-                semanticVersion.minor++;
+                semanticVersion.minor = semanticVersion.minor + 1;
                 semanticVersion.patch = 0;
             }
             else if (INCREMENT_PATCH) {
-                semanticVersion.patch++;
+                semanticVersion.patch = semanticVersion.patch + 1;
             }
             semanticVersion.prerelease = PRERELEASE;
             semanticVersion.meta = META;
@@ -547,11 +547,20 @@ class SemanticVersion {
         this._prerelease = '';
         this._meta = '';
     }
+    get major() {
+        return this._major;
+    }
     set major(value) {
         this._major = value;
     }
+    get minor() {
+        return this._minor;
+    }
     set minor(value) {
         this._minor = value;
+    }
+    get patch() {
+        return this._patch;
     }
     set patch(value) {
         this._patch = value;
