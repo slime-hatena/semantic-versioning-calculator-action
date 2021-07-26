@@ -48,7 +48,7 @@ jobs:
           PRERELEASE: ''
           META: ''
       - uses: ./
-        name: 'add prelease'
+        name: 'add prerelease'
         with:
           VERSION: '1.2.3+develop'
           INCREMENT_MAJOR: 'false'
