@@ -1,33 +1,33 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'semantic-versioning-calculator'
+description: 'Increments the semantic version string action.'
+author: 'slime-hatena'
 inputs:
     VERSION:
         required: true
-        description: 'Specifies the base version of the calculation as a string. The format must be in accordance with the semantic version. This entry must be specified.'
+        description: 'Specify the current semantic version. It must be followed semantic versioning rule. This value must be specified. For example: 0.2.5, 2.10.0-develop, etc.'
     INCREMENT_MAJOR:
         required: false
-        description: 'Increment major. The default value is "false".'
+        description: 'Set to "true" will increment major. The default value is "false".'
         default: 'false'
     INCREMENT_MINOR:
         required: false
-        description: 'Increment minor. If there is a change in the upper level, it will be ignored. The default value is "false".'
+        description: 'Set to "true" will increment minor. If INCREMENT_MAJOR is true, it will be ignored. The default value is "false".'
         default: 'false'
     INCREMENT_PATCH:
         required: false
-        description: 'Increment patch. If there is a change in the upper level, it will be ignored. The default value is "false".'
+        description: 'Set to "true" will increment patch. If INCREMENT_MAJOR or INCREMENT_MINOR are true, it will be ignored. The default value is "false".'
         default: 'false'
     PRERELEASE:
         required: false
-        description: 'Assign the specified text as a prerelease.'
-        default: 'false'
+        description: 'Set the value as a prerelease name if specified.'
+        default: ''
     META:
         required: false
-        description: 'Assign the specified text as a meta.'
-        default: 'false'
+        description: 'Set the value as a meta name if specified.'
+        default: ''
 outputs:
     version:
-        description: 'The message to output'
+        description: 'Calculated semantic version string.'
 runs:
     using: 'node12'
     main: 'dist/index.js'
