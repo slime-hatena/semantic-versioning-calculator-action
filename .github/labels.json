@@ -120,5 +120,10 @@
         "color": "cc317c",
         "description": "Further information is requested",
         "aliases": ["question"]
+    },
+    {
+        "name": "Type: Release",
+        "color": "137cb8",
+        "description": "Pull Request for release"
     }
 ]
