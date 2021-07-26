@@ -1,6 +1,9 @@
 name: 'semantic-versioning-calculator'
 description: 'Increments the semantic version string action.'
 author: 'slime-hatena'
+branding:
+    icon: 'plus'
+    color: 'blue'
 inputs:
     VERSION:
         required: true
