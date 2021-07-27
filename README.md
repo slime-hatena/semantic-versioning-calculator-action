@@ -36,7 +36,7 @@ on:
 test:
   runs-on: ubuntu-latest
   steps:
-    - uses: 'slime-hatena/semantic-versioning-calculator-action@main'
+    - uses: slime-hatena/semantic-versioning-calculator-action@main
       id: calc
       with:
         VERSION: '1.2.3+develop'
@@ -55,7 +55,7 @@ on:
 test:
   runs-on: ubuntu-latest
   steps:
-    - uses: 'slime-hatena/semantic-versioning-calculator-action@main'
+    - uses: slime-hatena/semantic-versioning-calculator-action@main
       id: calc
       with:
         VERSION: '1.2.3+develop'
@@ -75,7 +75,7 @@ on:
 test:
   runs-on: ubuntu-latest
   steps:
-    - uses: 'slime-hatena/semantic-versioning-calculator-action@main'
+    - uses: slime-hatena/semantic-versioning-calculator-action@main
       id: calc
       with:
         VERSION: '1.2.3+develop'
@@ -94,7 +94,7 @@ on:
 test:
   runs-on: ubuntu-latest
   steps:
-    - uses: 'slime-hatena/semantic-versioning-calculator-action@main'
+    - uses: slime-hatena/semantic-versioning-calculator-action@main
       id: calc
       with:
         VERSION: '1.2.3+develop'
@@ -113,7 +113,7 @@ on:
 test:
   runs-on: ubuntu-latest
   steps:
-    - uses: 'slime-hatena/semantic-versioning-calculator-action@main'
+    - uses: slime-hatena/semantic-versioning-calculator-action@main
       id: calc
       with:
         VERSION: '1.2.3+develop'
