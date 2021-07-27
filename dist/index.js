@@ -40,27 +40,27 @@ const SemanticVersion_1 = __nccwpck_require__(299);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const VERSION = core.getInput('VERSION');
-            const INCREMENT_MAJOR = core.getInput('INCREMENT_MAJOR').toLowerCase() === 'true';
-            const INCREMENT_MINOR = core.getInput('INCREMENT_MINOR').toLowerCase() === 'true';
-            const INCREMENT_PATCH = core.getInput('INCREMENT_PATCH').toLowerCase() === 'true';
-            const PRERELEASE = core.getInput('PRERELEASE');
-            const META = core.getInput('META');
-            const semanticVersion = new SemanticVersion_1.SemanticVersion().parse(VERSION);
-            if (INCREMENT_MAJOR) {
+            const version = core.getInput('version');
+            const incrementMajor = core.getInput('increment_major').toLowerCase() === 'true';
+            const incrementMinor = core.getInput('increment_minor').toLowerCase() === 'true';
+            const incrementPatch = core.getInput('increment_patch').toLowerCase() === 'true';
+            const prerelease = core.getInput('prerelease');
+            const meta = core.getInput('meta');
+            const semanticVersion = new SemanticVersion_1.SemanticVersion().parse(version);
+            if (incrementMajor) {
                 semanticVersion.major = semanticVersion.major + 1;
                 semanticVersion.minor = 0;
                 semanticVersion.patch = 0;
             }
-            else if (INCREMENT_MINOR) {
+            else if (incrementMinor) {
                 semanticVersion.minor = semanticVersion.minor + 1;
                 semanticVersion.patch = 0;
             }
-            else if (INCREMENT_PATCH) {
+            else if (incrementPatch) {
                 semanticVersion.patch = semanticVersion.patch + 1;
             }
-            semanticVersion.prerelease = PRERELEASE;
-            semanticVersion.meta = META;
+            semanticVersion.prerelease = prerelease;
+            semanticVersion.meta = meta;
             const tag = semanticVersion.tag;
             core.info(`version: ${tag}`);
             core.setOutput('version', tag);

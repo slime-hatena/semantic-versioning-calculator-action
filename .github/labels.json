@@ -122,8 +122,8 @@
         "aliases": ["question"]
     },
     {
-        "name": "Type: Release",
+        "name": "Release",
         "color": "137cb8",
-        "description": "Pull Request for release"
+        "description": "Pull Requests for release"
     }
 ]

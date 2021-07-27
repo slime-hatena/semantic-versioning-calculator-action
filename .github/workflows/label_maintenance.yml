@@ -1,5 +1,6 @@
 name: 'Label maintenance'
 on:
+    workflow_dispatch:
     schedule:
         - cron: '0 19 * * *' # 4:00 UTC+0900
 
