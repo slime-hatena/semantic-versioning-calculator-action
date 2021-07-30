@@ -24,14 +24,14 @@ jobs:
             - name: Check first release
               id: check-latest
               run: |
-                  if [ -n "${{ steps.get-latest.outputs.release }}" ];then \
-                    echo "::set-output name=version::${{ steps.get-latest.outputs.release }}"; \
-                    echo "::set-output name=from::${{ steps.get-latest.outputs.release }}"; \
-                    echo "::set-output name=skip::false"; \
+                  if [ -n "${{ steps.get-latest.outputs.release }}" ];then
+                    echo "::set-output name=version::${{ steps.get-latest.outputs.release }}";
+                    echo "::set-output name=from::${{ steps.get-latest.outputs.release }}";
+                    echo "::set-output name=skip::false";
                   else
-                    echo "::set-output name=version::1.0.0"; \
-                    echo "::set-output name=from::4b825dc642cb6eb9a060e54bf8d69288fbee4904"; \
-                    echo "::set-output name=skip::true"; \
+                    echo "::set-output name=version::1.0.0";
+                    echo "::set-output name=from::4b825dc642cb6eb9a060e54bf8d69288fbee4904";
+                    echo "::set-output name=skip::true";
                   fi
             - name: 'Generate changelog'
               uses: 'slime-hatena/lerna-changelog-action@main'
@@ -43,16 +43,16 @@ jobs:
             - name: Judge the next version
               id: judge-next-version
               run: |
-                  echo "::set-output name=major::false"; \
-                  echo "::set-output name=minor::false"; \
-                  echo "::set-output name=patch::false"; \
+                  echo "::set-output name=major::false";
+                  echo "::set-output name=minor::false";
+                  echo "::set-output name=patch::false";
                   if [ "${{ steps.check-latest.outputs.skip }}" = "false" ]; then
-                    if [ `echo '${{ steps.changelog.outputs.markdown }}' | grep 'Breaking Change'` ] ; then \
-                      echo "::set-output name=major::true"; \
-                    elif [ `echo '${{ steps.changelog.outputs.markdown }}' | grep 'Feature'` ] ; then \
-                      echo "::set-output name=minor::true"; \
-                    else \
-                      echo "::set-output name=patch::true"; \
+                    if [ -n "`echo "${{ steps.changelog.outputs.markdown }}" | grep 'Breaking Change';`" ] ; then
+                      echo "::set-output name=major::true";
+                    elif [ -n "`echo "${{ steps.changelog.outputs.markdown }}" | grep 'Feature'`" ] ; then
+                      echo "::set-output name=minor::true";
+                    else
+                      echo "::set-output name=patch::true";
                     fi
                   fi
             - name: 'Calc next version'
