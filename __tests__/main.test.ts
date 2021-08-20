@@ -1,4 +1,4 @@
-import {SemanticVersion} from '../src/SemanticVersion';
+import {SemanticVersion} from '../src/semantic';
 
 let versions = [
     '1.0.0',

@@ -36,7 +36,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const SemanticVersion_1 = __nccwpck_require__(299);
+const semantic_1 = __nccwpck_require__(934);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -46,7 +46,7 @@ function run() {
             const incrementPatch = core.getInput('increment_patch').toLowerCase() === 'true';
             const prerelease = core.getInput('prerelease');
             const meta = core.getInput('meta');
-            const semanticVersion = new SemanticVersion_1.SemanticVersion().parse(version);
+            const semanticVersion = new semantic_1.SemanticVersion().parse(version);
             if (incrementMajor) {
                 semanticVersion.major = semanticVersion.major + 1;
                 semanticVersion.minor = 0;
@@ -71,6 +71,115 @@ function run() {
     });
 }
 run();
+
+
+/***/ }),
+
+/***/ 934:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SemanticVersion = void 0;
+class SemanticVersion {
+    constructor() {
+        this._major = 0;
+        this._minor = 0;
+        this._patch = 0;
+        this._prerelease = '';
+        this._meta = '';
+    }
+    get major() {
+        return this._major;
+    }
+    set major(value) {
+        this._major = value;
+    }
+    get minor() {
+        return this._minor;
+    }
+    set minor(value) {
+        this._minor = value;
+    }
+    get patch() {
+        return this._patch;
+    }
+    set patch(value) {
+        this._patch = value;
+    }
+    set prerelease(value) {
+        this._prerelease = value;
+    }
+    set meta(value) {
+        this._meta = value;
+    }
+    get tag() {
+        if (this._prerelease !== '' && this._meta !== '') {
+            return `${this._major}.${this._minor}.${this._patch}-${this._prerelease}+${this._meta}`;
+        }
+        else if (this._prerelease !== '' && this._meta === '') {
+            return `${this._major}.${this._minor}.${this._patch}-${this._prerelease}`;
+        }
+        else if (this._prerelease === '' && this._meta !== '') {
+            return `${this._major}.${this._minor}.${this._patch}+${this._meta}`;
+        }
+        else {
+            return `${this._major}.${this._minor}.${this._patch}`;
+        }
+    }
+    parse(versionString) {
+        if (toString.call(versionString) !== '[object String]') {
+            throw new Error(`Argument 'versionString' must be [object String], but ${toString.call(versionString)} specified.`);
+        }
+        if ((versionString.match(/\./g) || []).length !== 2) {
+            throw new Error(`Wrong tag as semantic versioning. ${versionString}`);
+        }
+        const v = versionString.split('.');
+        for (let i = 0; i <= 2; ++i) {
+            let element = v[i];
+            if (i === 2) {
+                let hasPrerelease = element.includes('-');
+                const hasMeta = element.includes('+');
+                if (hasPrerelease && hasMeta) {
+                    hasPrerelease = !element.match(/\+.*-/);
+                }
+                if (hasPrerelease && hasMeta) {
+                    const m = element.split('+');
+                    element = m[0];
+                    this._meta = m[1];
+                    const p = element.split('-');
+                    element = p[0];
+                    this._prerelease = p[1];
+                }
+                else if (hasMeta) {
+                    const m = element.split('+');
+                    element = m[0];
+                    this._meta = m[1];
+                }
+                else if (hasPrerelease) {
+                    const p = element.split('-');
+                    element = p[0];
+                    this._prerelease = p[1];
+                }
+            }
+            const n = Number(element);
+            if (Number.isNaN(n)) {
+                throw new Error(`${element} is not interpreted as an integer value. ${versionString}`);
+            }
+            if (i === 0) {
+                this._major = n;
+            }
+            else if (i === 1) {
+                this._minor = n;
+            }
+            else if (i === 2) {
+                this._patch = n;
+            }
+        }
+        return this;
+    }
+}
+exports.SemanticVersion = SemanticVersion;
 
 
 /***/ }),
@@ -532,115 +641,6 @@ exports.toCommandValue = toCommandValue;
 
 /***/ }),
 
-/***/ 299:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
-
-__nccwpck_require__.r(__webpack_exports__);
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "SemanticVersion": () => (/* binding */ SemanticVersion)
-/* harmony export */ });
-class SemanticVersion {
-    constructor() {
-        this._major = 0;
-        this._minor = 0;
-        this._patch = 0;
-        this._prerelease = '';
-        this._meta = '';
-    }
-    get major() {
-        return this._major;
-    }
-    set major(value) {
-        this._major = value;
-    }
-    get minor() {
-        return this._minor;
-    }
-    set minor(value) {
-        this._minor = value;
-    }
-    get patch() {
-        return this._patch;
-    }
-    set patch(value) {
-        this._patch = value;
-    }
-    set prerelease(value) {
-        this._prerelease = value;
-    }
-    set meta(value) {
-        this._meta = value;
-    }
-    get tag() {
-        if (this._prerelease !== '' && this._meta !== '') {
-            return `${this._major}.${this._minor}.${this._patch}-${this._prerelease}+${this._meta}`;
-        }
-        else if (this._prerelease !== '' && this._meta === '') {
-            return `${this._major}.${this._minor}.${this._patch}-${this._prerelease}`;
-        }
-        else if (this._prerelease === '' && this._meta !== '') {
-            return `${this._major}.${this._minor}.${this._patch}+${this._meta}`;
-        }
-        else {
-            return `${this._major}.${this._minor}.${this._patch}`;
-        }
-    }
-    parse(versionString) {
-        if (toString.call(versionString) !== '[object String]') {
-            throw new Error(`Argument 'versionString' must be [object String], but ${toString.call(versionString)} specified.`);
-        }
-        if ((versionString.match(/\./g) || []).length !== 2) {
-            throw new Error(`Wrong tag as semantic versioning. ${versionString}`);
-        }
-        const v = versionString.split('.');
-        for (let i = 0; i <= 2; ++i) {
-            let element = v[i];
-            if (i === 2) {
-                let hasPrerelease = element.includes('-');
-                const hasMeta = element.includes('+');
-                if (hasPrerelease && hasMeta) {
-                    hasPrerelease = !element.match(/\+.*-/);
-                }
-                if (hasPrerelease && hasMeta) {
-                    const m = element.split('+');
-                    element = m[0];
-                    this._meta = m[1];
-                    const p = element.split('-');
-                    element = p[0];
-                    this._prerelease = p[1];
-                }
-                else if (hasMeta) {
-                    const m = element.split('+');
-                    element = m[0];
-                    this._meta = m[1];
-                }
-                else if (hasPrerelease) {
-                    const p = element.split('-');
-                    element = p[0];
-                    this._prerelease = p[1];
-                }
-            }
-            const n = Number(element);
-            if (Number.isNaN(n)) {
-                throw new Error(`${element} is not interpreted as an integer value. ${versionString}`);
-            }
-            if (i === 0) {
-                this._major = n;
-            }
-            else if (i === 1) {
-                this._minor = n;
-            }
-            else if (i === 2) {
-                this._patch = n;
-            }
-        }
-        return this;
-    }
-}
-
-
-/***/ }),
-
 /***/ 747:
 /***/ ((module) => {
 
@@ -695,34 +695,6 @@ module.exports = require("path");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
