@@ -36,7 +36,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const semanticVersion_1 = __nccwpck_require__(794);
+const semantic_1 = __nccwpck_require__(934);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -46,7 +46,7 @@ function run() {
             const incrementPatch = core.getInput('increment_patch').toLowerCase() === 'true';
             const prerelease = core.getInput('prerelease');
             const meta = core.getInput('meta');
-            const semanticVersion = new semanticVersion_1.SemanticVersion().parse(version);
+            const semanticVersion = new semantic_1.SemanticVersion().parse(version);
             if (incrementMajor) {
                 semanticVersion.major = semanticVersion.major + 1;
                 semanticVersion.minor = 0;
@@ -75,7 +75,7 @@ run();
 
 /***/ }),
 
-/***/ 794:
+/***/ 934:
 /***/ ((__unused_webpack_module, exports) => {
 
 

@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import {SemanticVersion} from './semanticVersion';
+import {SemanticVersion} from './semantic';
 
 async function run(): Promise<void> {
     try {
